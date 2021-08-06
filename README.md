@@ -7,8 +7,14 @@
 
 Looking at flight delay data provided by Bureau of Transportaion Statistics from 2003 and 2021, I want to show 
 which airports have the most security delays and within those airports, which airlines are most affected each year. 
-I chose a map to show the top (5-20) airports and bubbles to show the airlines and year. 
+I chose a map to show the top (5-20) airports and bubbles to show the airlines and year. My finding is that the following 5 airports have the most security delays:
+- LAX
+- PHX
+- DFW
+- ATL
+- ORD
 
+Withinin these cities, the airlines most affected vary over the years.  DFW is an exception as American Airlines is consistantly the most affected since 2003. 
 
 ## Design: 
 
