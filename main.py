@@ -18,7 +18,7 @@ def setupdb(dbname):
     cur.execute(createtbl)
 
     createtbl = '''create table flights_tidy (\
-                year int,carrier,carrier_name varchar(100),airport char(3),airport_name varchar(100),security_delay int)'''
+                year int,carrier,carrier_name varchar(100),airport char(3),airport_name varchar(100),security_delay int, top_five varchar(5))'''
 
     cur.execute(createtbl)
     con.commit
@@ -63,15 +63,28 @@ def importdata(infile,con):
 def squeezedata(con):
 
     #remove month and remove values which are zero
+    cur = con.cursor()
 
-    sql = "insert into flights_tidy (year,carrier,carrier_name,airport,airport_name,security_delay) \
-           select year,carrier,carrier_name,airport,airport_name,sum(security_delay) \
+    #Top 5 airports by delays
+    sql = "insert into flights_tidy (year,carrier,carrier_name,airport,airport_name,security_delay,top_five) \
+           select year,carrier,carrier_name,airport,airport_name,sum(security_delay),\'TRUE\' \
            from flights \
            where security_delay > 0 \
+           and airport in ('LAX','PHX','DFW','ATL','ORD') \
            group by year,carrier_name,airport,airport_name"
     
-    cur = con.cursor()
     cur.execute(sql)
+
+    #The rest
+    sql = "insert into flights_tidy (year,carrier,carrier_name,airport,airport_name,security_delay,top_five) \
+           select year,carrier,carrier_name,airport,airport_name,sum(security_delay),\'FALSE\' \
+           from flights \
+           where security_delay > 0 \
+           and airport not in ('LAX','PHX','DFW','ATL','ORD') \
+           group by year,carrier_name,airport,airport_name"
+
+    cur.execute(sql)
+
     con.commit()
     cur.close()
 
@@ -80,13 +93,13 @@ def outputdata(outfile,con):
     #Write flights_tidy out to csv
     #https://stackoverflow.com/questions/10522830/how-to-export-sqlite-to-csv-in-python-without-being-formatted-as-a-list
     cur = con.cursor()
-    cur.execute ('select year,carrier,carrier_name,airport,airport_name,security_delay from flights_tidy order by year,airport_name')
+    cur.execute ('select year,carrier,carrier_name,airport,airport_name,security_delay,top_five from flights_tidy order by year,airport_name')
 
     with open(outfile, 'w', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow(['year', 'carrier','carrier_name', 'airport', 'airport_name', 'security_delay'])
+        writer.writerow(['year', 'carrier','carrier_name', 'airport', 'airport_name', 'security_delay','top_five'])
         for flight in cur.fetchall():
-            writer.writerow([flight[0],flight[1],flight[2],flight[3],flight[4],flight[5]])
+            writer.writerow([flight[0],flight[1],flight[2],flight[3],flight[4],flight[5],flight[6]])
     
     f.close()
             
