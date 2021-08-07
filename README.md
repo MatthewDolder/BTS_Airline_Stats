@@ -93,5 +93,5 @@ https://www.transtats.bts.gov/OT_Delay/OT_DelayCause1.asp
 | ----------- | ----------- |
 | README.md   | This document  |
 | main.py     | Data Wrangling |
-| 418421584_52021_5443_airline_delay_causes.csv    | Used by Final Draft Tableau story.  Output of main.py |
+| 418421584_52021_5443_airline_delay_causes.zip    | Contains a single CSV file. Used by Final Draft Tableau story.  Output of main.py |
 
