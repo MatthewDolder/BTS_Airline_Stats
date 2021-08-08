@@ -5,9 +5,7 @@
 
 ## Summary: 
 
-Looking at flight delay data provided by Bureau of Transportaion Statistics from 2003 and 2021, I want to show 
-which airports have the most security delays and within those airports, which airlines are most affected.  I also want to show if the situation is 
-improving year over year.
+Airlines are obviously impacted by airport security delays, but the number of flights affected is surprising.  The situation seemed to improve for a while, but is trending worse again.  Southwest would benefit the most from a nation wide improvement while American Airlines could benefit greatly by focusing on LAX. It is too soon to see how post pandemic travel plays out, but as of May 2021, the situation doesn't look great. 
  
 
 ## Design: 
@@ -30,8 +28,7 @@ Based on second round feedback and my own observations, I made the following cha
 3. I finally gave up on the bubbles.  The size of the bubble is confusing, the position of small bubbles if confusing, and the colors conflict with the True/False legend.  I switched to a treemap instead. 
 
 ### Final Draft Story
-https://public.tableau.com/views/AirportSecurityDelays-StorySecondDraft/SecurityDelays?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link
-
+https://public.tableau.com/views/AirportSecurityDelays-StoryThirdDraft/Story2?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link
 
 ## Feedback: 
 My two teenage daughters provided feedback first on a single dashboard:
